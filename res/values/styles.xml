@@ -1,0 +1,41 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    
+    <style name="list_view_header_title_style">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">25px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">10px</item>
+        <item name="android:textColor">@color/list_view_header_text_color</item>
+    </style>
+    
+    <style name="list_view_item_text_view_style">
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textSize">23px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/list_view_item_text_color</item>
+    </style>
+    
+    <style name="btn_request_style">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">200dp</item>
+    </style>
+
+</resources>

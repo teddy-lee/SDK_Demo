@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="20.0dip"
+	    android:orientation="horizontal">
+	    <Button
+	        android:id="@+id/btnLogin"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_login_apmp_msg" />
+	    
+	    <Button
+	        android:id="@+id/btnDownloadPayments"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_download_payments_msg" />
+	    
+	    <Button
+	        android:id="@+id/btnSignIn"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_sign_in_posp_msg" />
+	    
+	    <Button
+	        android:id="@+id/btnBalanceQuery"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_balance_query_msg" />
+	    
+	    <Button
+	        android:id="@+id/btnSuperTransfer"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_super_transfer_msg" />
+	    
+	    <Button
+	        android:id="@+id/btnGetPayments"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:visibility="gone"
+	        android:text="@string/btn_get_payment_from_provider_msg" />
+	</LinearLayout>
+	<!-- <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="20.0dip"
+	    android:orientation="horizontal">
+	    <Button
+	        android:id="@+id/btnPrintReceipt"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_request_print_receipt" />
+	</LinearLayout> -->
+	<ScrollView 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+	    
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/resultText"
+	        android:text="@string/msg_test_pay_common"
+	        android:textSize="@dimen/common_text_view_text_size"
+	        android:layout_marginTop="21.0dip"
+	        android:layout_marginLeft="10dp" />
+	</ScrollView>
+    
+    <!-- <include 
+        layout="@layout/content_header"/> -->
+    
+    <!-- <ListView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/paymentInfoListView"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" /> -->
+
+</LinearLayout>

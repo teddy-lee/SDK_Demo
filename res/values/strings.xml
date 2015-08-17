@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">收银通SDK调用案例</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- list view title -->
+    <string name="payment_id_header_str">活动编号</string>
+    <string name="payment_name_header_str">活动名称</string>
+    <string name="product_title_header_str">产品名称</string>
+    <string name="product_no_header_str">产品编号</string>
+    <string name="openbrh_no_header_str">支付机构号</string>
+    <string name="openbrh_name_header_str">支付机构</string>
+    <string name="operate_header_str">操作</string>
+    <string name="start_pay_btn_str">普通支付 0.50元</string>
+    
+    <string name="msg_test_pay_common">Test to pay 0.50 RMB</string>
+    <string name="btn_start_pay_msg">支付0.50</string>
+    <string name="btn_start_balance_msg">余额查询</string>
+    <string name="btn_request_payment">指定支付0.50元</string>
+    <string name="btn_request_merch_info">请求商户信息</string>
+    <string name="btn_request_login_info">请求登录信息</string>
+    <string name="btn_reverse_consumption">交易撤消</string>
+    <string name="btn_get_balance">查询余额</string>
+    <string name="btn_request_print_receipt">打印小票</string>
+    <string name="btn_login_apmp_msg">登录</string>
+    <string name="btn_sign_in_posp_msg">签到</string>
+    <string name="btn_download_payments_msg">下载参数</string>
+    <string name="btn_balance_query_msg">查询余额</string>
+    <string name="btn_super_transfer_msg">超级转账</string>
+    <string name="btn_get_payment_from_provider_msg">获取支付渠道</string>
+    
+    <string name="msg_swipe_the_card_please">请刷卡</string>
+    <string name="action_clear_msg">清除</string>
+    <string name="msg_do_consume_first_then_print">请先做交易再打印!</string>
+    <string name="msg_please_confirm_emv_card_or_not">请确认此卡是否具有芯片？</string>
+    <string name="msg_confirm_emv_card">芯片卡确认</string>
+    <string name="msg_button_yes">是</string>
+    <string name="msg_button_no">否</string>
+	
+</resources>
