@@ -28,6 +28,12 @@
 	        android:text="@string/btn_sign_in_posp_msg" />
 	    
 	    <Button
+	        android:id="@+id/btnConsume"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_consume_posp_msg" />
+	    
+	    <Button
 	        android:id="@+id/btnBalanceQuery"
 	        style="@style/btn_request_style"
 	        android:layout_marginLeft="15dp"
@@ -46,17 +52,27 @@
 	        android:visibility="gone"
 	        android:text="@string/btn_get_payment_from_provider_msg" />
 	</LinearLayout>
-	<!-- <LinearLayout 
+	<LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="20.0dip"
 	    android:orientation="horizontal">
 	    <Button
-	        android:id="@+id/btnPrintReceipt"
+	        android:id="@+id/btnClearReversal"
 	        style="@style/btn_request_style"
 	        android:layout_marginLeft="15dp"
-	        android:text="@string/btn_request_print_receipt" />
-	</LinearLayout> -->
+	        android:text="@string/btn_clear_reversal" />
+	    <Button
+	        android:id="@+id/btnStopTransaction"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_stop_transaction" />
+	    <Button
+	        android:id="@+id/btnLogout"
+	        style="@style/btn_request_style"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/btn_logout_apmp" />
+	</LinearLayout>
 	<ScrollView 
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent">

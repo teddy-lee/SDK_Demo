@@ -1,5 +1,7 @@
 package cn.koolcloud.demo.activities;
 
+import java.util.UUID;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,6 +38,10 @@ public class DemoPayActivity extends BaseActivity implements
 	private Button btnBalanceQuery;
 	private Button btnSuperTransfer;
 	private Button btnGetPayments;
+	private Button btnConsume;
+	private Button btnLogout;
+	private Button btnClearReversal;
+	private Button btnStopTransaction;
 	private TextView resultTextView;
 
 	private final IApmpCallBack.Stub mIApmpCallBack = new IApmpCallBack.Stub() {
@@ -44,7 +50,6 @@ public class DemoPayActivity extends BaseActivity implements
 		public void loginApmpCallBack(String loginResult)
 				throws RemoteException {
 			Log.e(TAG, "login result:" + loginResult);
-			// TODO Auto-generated method stub
 			Message msg = mHandler.obtainMessage();
 			msg.what = SHOW_COMMON_RESULT;
 			msg.obj = loginResult;
@@ -54,11 +59,19 @@ public class DemoPayActivity extends BaseActivity implements
 		@Override
 		public void onDownloadPaymentParamsCallBack(String paymentObj)
 				throws RemoteException {
-			// TODO Auto-generated method stub
 			Message msg = mHandler.obtainMessage();
 			msg.what = SHOW_COMMON_RESULT;
 			msg.obj = paymentObj;
 			mHandler.sendMessage(msg);
+		}
+
+		@Override
+		public void logoutCallBack(String logoutResult) throws RemoteException {
+			Message msg = mHandler.obtainMessage();
+			msg.what = SHOW_COMMON_RESULT;
+			msg.obj = logoutResult;
+			mHandler.sendMessage(msg);
+			
 		}
 
 	};
@@ -85,6 +98,13 @@ public class DemoPayActivity extends BaseActivity implements
 			msg.what = SHOW_COMMON_RESULT;
 			msg.obj = transactionResult;
 			mHandler.sendMessage(msg);
+		}
+
+		@Override
+		public void onClearReversalDataCallBack(boolean result)
+				throws RemoteException {
+			// TODO Auto-generated method stub
+			
 		}
 
 	};
@@ -146,6 +166,14 @@ public class DemoPayActivity extends BaseActivity implements
 		btnBalanceQuery.setOnClickListener(this);
 		btnSuperTransfer = (Button) findViewById(R.id.btnSuperTransfer);
 		btnSuperTransfer.setOnClickListener(this);
+		btnConsume = (Button) findViewById(R.id.btnConsume);
+		btnConsume.setOnClickListener(this);
+		btnLogout = (Button) findViewById(R.id.btnLogout);
+		btnLogout.setOnClickListener(this);
+		btnClearReversal = (Button) findViewById(R.id.btnClearReversal);
+		btnClearReversal.setOnClickListener(this);
+		btnStopTransaction = (Button) findViewById(R.id.btnStopTransaction);
+		btnStopTransaction.setOnClickListener(this);
 
 		resultTextView = (TextView) findViewById(R.id.resultText);
 
@@ -200,11 +228,25 @@ public class DemoPayActivity extends BaseActivity implements
 		case R.id.btnLogin:
 			new LoginApmpThread().start();
 			break;
+		case R.id.btnLogout:
+			new LogoutApmpThread().start();
+			break;
 		case R.id.btnSignIn:
 			new SignInPospThread().start();
 			break;
+		case R.id.btnConsume:
+			showCommonResult(getResources().getString(
+					R.string.msg_swipe_the_card_please));
+			new ExeConsumeThread().start();
+			break;
 		case R.id.btnDownloadPayments:
 			new DownloadPaymentsThread().start();
+			break;
+		case R.id.btnClearReversal:
+			new ClearReversalDataThread().start();
+			break;
+		case R.id.btnStopTransaction:
+			new StopTransactionThread().start();
 			break;
 		case R.id.btnBalanceQuery:
 			showCommonResult(getResources().getString(
@@ -304,6 +346,18 @@ public class DemoPayActivity extends BaseActivity implements
 			}
 		}
 	}
+	
+	class LogoutApmpThread extends Thread {
+		
+		@Override
+		public void run() {
+			try {
+				mIApmpInterface.logoutApmp(mIApmpCallBack);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	class DownloadPaymentsThread extends Thread {
 
@@ -318,13 +372,39 @@ public class DemoPayActivity extends BaseActivity implements
 		}
 
 	}
+	
+	class ClearReversalDataThread extends Thread {
+		
+		@Override
+		public void run() {
+			try {
+				mITransactionInterface.clearReversalData(mTransactionCallBack);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	class StopTransactionThread extends Thread {
+		
+		@Override
+		public void run() {
+			try {
+				mIDevicesInterface.stopTransaction();
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 
 	class SignInPospThread extends Thread {
 
 		@Override
 		public void run() {
 			try {
-				mITransactionInterface.signIn("0000000025",
+				mITransactionInterface.signIn("0000000053",
 						mTransactionCallBack);
 			} catch (RemoteException e) {
 				e.printStackTrace();
@@ -338,8 +418,9 @@ public class DemoPayActivity extends BaseActivity implements
 		@Override
 		public void run() {
 			try {
+				UUID uuid = UUID.randomUUID();
 				mIDevicesInterface.onStartSwipeCard("0000000009", "", "1041",
-						"", "", mDevicesCallBack, mTransactionCallBack);
+						"", "", uuid.toString(), mDevicesCallBack, mTransactionCallBack);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -351,8 +432,9 @@ public class DemoPayActivity extends BaseActivity implements
 		@Override
 		public void run() {
 			try {
+				UUID uuid = UUID.randomUUID();
 				mIDevicesInterface.onStartSwipeCard("0000000025", "0.01",
-						"1721", "123456", "6214180100000324856",
+						"1721", "123456", "6214180100000324856", uuid.toString(),
 						mDevicesCallBack, mTransactionCallBack);
 			} catch (RemoteException e) {
 				e.printStackTrace();
@@ -372,6 +454,20 @@ public class DemoPayActivity extends BaseActivity implements
 		public void run() {
 			try {
 				mIDevicesInterface.startPinPad(isEMVCard);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	class ExeConsumeThread extends Thread {
+
+		@Override
+		public void run() {
+			try {
+				UUID uuid = UUID.randomUUID();
+				mIDevicesInterface.onStartSwipeCard("0000000053", "0.01", "1021",
+						"", "", uuid.toString(), mDevicesCallBack, mTransactionCallBack);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}

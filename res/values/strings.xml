@@ -25,9 +25,13 @@
     <string name="btn_request_print_receipt">打印小票</string>
     <string name="btn_login_apmp_msg">登录</string>
     <string name="btn_sign_in_posp_msg">签到</string>
+    <string name="btn_consume_posp_msg">消费</string>
     <string name="btn_download_payments_msg">下载参数</string>
     <string name="btn_balance_query_msg">查询余额</string>
     <string name="btn_super_transfer_msg">超级转账</string>
+    <string name="btn_logout_apmp">退出登录</string>
+    <string name="btn_clear_reversal">清除冲正数据</string>
+    <string name="btn_stop_transaction">终止交易</string>
     <string name="btn_get_payment_from_provider_msg">获取支付渠道</string>
     
     <string name="msg_swipe_the_card_please">请刷卡</string>
