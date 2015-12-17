@@ -1,5 +1,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    
+    <item
+        android:id="@+id/action_login"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/btn_login_apmp_msg"/>
+    <item
+        android:id="@+id/action_download_payments"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/btn_download_payments_msg"/>
+    <item
+        android:id="@+id/action_sign_in"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/btn_sign_in_posp_msg"/>
+    <item
+        android:id="@+id/action_sale"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/btn_consume_posp_msg"/>
+    <item
+        android:id="@+id/action_balance_query"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/btn_balance_query_msg"/>
+    <item
+        android:id="@+id/action_set_master_key"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/btn_set_master_key_msg"/>
     <item
         android:id="@+id/action_clear"
         android:orderInCategory="100"

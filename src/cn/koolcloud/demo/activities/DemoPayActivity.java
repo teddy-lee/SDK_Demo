@@ -19,16 +19,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import cn.android.cuppos.Util.BCDHelper;
+import cn.koolcloud.demo.utils.ByteUtil;
 import cn.koolcloud.sdk.daemon.R;
 
 import com.koolcloud.sdk.fmsc.service.IApmpCallBack;
 import com.koolcloud.sdk.fmsc.service.IDevicesCallBack;
 import com.koolcloud.sdk.fmsc.service.ITransactionCallBack;
+import com.koolyun.smartpos.Hardware.PinpadManager;
 
 public class DemoPayActivity extends BaseActivity implements
 		View.OnClickListener {
 	private final static String TAG = "DemoPayActivity";
+	private final static String MASTER_KEY = "32E37638C086BD542E4CC20C02D61CB7";
 
 	private final static int SHOW_COMMON_RESULT = 0;
 
@@ -189,7 +195,7 @@ public class DemoPayActivity extends BaseActivity implements
 					String reslut = (String) msg.obj;
 					if (!TextUtils.isEmpty(reslut)) {
 						JSONObject resultObj = new JSONObject(reslut);
-						
+						Log.d(TAG, "result:" + resultObj.toString());
 						if (!resultObj.isNull("show_dialog")) {
 							boolean showDialog = resultObj.optBoolean("show_dialog");
 							if (showDialog) {
@@ -197,6 +203,10 @@ public class DemoPayActivity extends BaseActivity implements
 							} else {
 								new StartPinPadThread(false).start();
 							}
+						}
+						
+						if (!resultObj.isNull("process_code") && resultObj.optInt("process_code") == 12) {
+							new StartPinPadThread(true).start();
 						}
 						
 						showCommonResult(reslut);
@@ -283,11 +293,54 @@ public class DemoPayActivity extends BaseActivity implements
 		case R.id.action_clear:
 			hiddenViews();
 			break;
-
+		case R.id.action_login:
+			new LoginApmpThread().start();
+			break;
+		case R.id.btnLogout:
+			new LogoutApmpThread().start();
+			break;
+		case R.id.action_sign_in:
+			new SignInPospThread().start();
+			break;
+		case R.id.action_sale:
+			showCommonResult(getResources().getString(
+					R.string.msg_swipe_the_card_please));
+			new ExeConsumeThread().start();
+			break;
+		case R.id.action_download_payments:
+			new DownloadPaymentsThread().start();
+			break;
+		case R.id.btnClearReversal:
+			new ClearReversalDataThread().start();
+			break;
+		case R.id.btnStopTransaction:
+			new StopTransactionThread().start();
+			break;
+		case R.id.action_balance_query:
+			showCommonResult(getResources().getString(
+					R.string.msg_swipe_the_card_please));
+			new BalanceQueryThread().start();
+			break;
+		case R.id.action_set_master_key:
+			PinpadManager pinpadManager = new PinpadManager();
+			int initPinpadResult = pinpadManager.init(mHandler, this);
+			Log.i(TAG, "init pinpad result:" + initPinpadResult);
+			
+			int setMasterKeyResult = pinpadManager.updMasterKey(2, BCDHelper.StrToBCD(MASTER_KEY));
+			Log.i(TAG, "set master key result:" + setMasterKeyResult);
+			pinpadManager.fini();
+			break; 
 		default:
 			break;
 		}
 		return super.onMenuItemSelected(featureId, item);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		new StopTransactionThread().start();
 	}
 
 	private void showDialog() {
@@ -433,7 +486,7 @@ public class DemoPayActivity extends BaseActivity implements
 		public void run() {
 			try {
 				UUID uuid = UUID.randomUUID();
-				mIDevicesInterface.onStartSwipeCard("0000000025", "0.01",
+				mIDevicesInterface.onStartSwipeCard("0000000025", "0.50",
 						"1721", "123456", "6214180100000324856", uuid.toString(),
 						mDevicesCallBack, mTransactionCallBack);
 			} catch (RemoteException e) {
@@ -466,7 +519,9 @@ public class DemoPayActivity extends BaseActivity implements
 		public void run() {
 			try {
 				UUID uuid = UUID.randomUUID();
-				mIDevicesInterface.onStartSwipeCard("0000000004", "50000", "1021",
+				/*mIDevicesInterface.onStartSwipeCard("0000000053", "0.50", "1021",
+						"", "", uuid.toString(), mDevicesCallBack, mTransactionCallBack);*/
+				mIDevicesInterface.onStartSwipeCard("0000000004", "0.01", "1021",
 						"", "", uuid.toString(), mDevicesCallBack, mTransactionCallBack);
 			} catch (RemoteException e) {
 				e.printStackTrace();

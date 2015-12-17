@@ -7,6 +7,14 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="14" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+    <uses-permission android:name="android.permission.KOOLCLOUD_PINPAD" />
+    <uses-permission android:name="android.permission.KOOLCLOUD_PIN_GET_PIN_BLOCK" />
+    <uses-permission android:name="android.permission.KOOLCLOUD_PIN_MAC" />
+    <uses-permission android:name="android.permission.KOOLCLOUD_PIN_ENCRYPT_DATA" />
+    <uses-permission android:name="android.permission.KOOLCLOUD_PIN_UPDATE_MASTER_KEY" />
+    <uses-permission android:name="android.permission.KOOLCLOUD_PIN_UPDATE_USER_KEY" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
