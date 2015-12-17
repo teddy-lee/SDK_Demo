@@ -404,7 +404,7 @@ public class DemoPayActivity extends BaseActivity implements
 		@Override
 		public void run() {
 			try {
-				mITransactionInterface.signIn("0000000053",
+				mITransactionInterface.signIn("0000000004",
 						mTransactionCallBack);
 			} catch (RemoteException e) {
 				e.printStackTrace();
@@ -466,7 +466,7 @@ public class DemoPayActivity extends BaseActivity implements
 		public void run() {
 			try {
 				UUID uuid = UUID.randomUUID();
-				mIDevicesInterface.onStartSwipeCard("0000000053", "0.01", "1021",
+				mIDevicesInterface.onStartSwipeCard("0000000004", "50000", "1021",
 						"", "", uuid.toString(), mDevicesCallBack, mTransactionCallBack);
 			} catch (RemoteException e) {
 				e.printStackTrace();
